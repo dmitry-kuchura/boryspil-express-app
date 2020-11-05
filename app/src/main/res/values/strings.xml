@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Kyiv Boryspil Express</string>
+    <string name="traveling">traveling</string>
+    <string name="from">from ?</string>
+    <string name="where_are_you">Where are you</string>
+    <string name="enter_your_departure">Enter your departure</string>
+    <string name="all">All</string>
+    <string name="upcoming_trips">Upcoming Trips</string>
+    <string name="boryspil_express">Boryspil Express</string>
+    <string name="_6_nov_09_40">6 Nov, 09:40</string>
+</resources>
