@@ -369,7 +369,7 @@
                         android:layout_width="@dimen/_100sdp"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/vydubychi"
+                        android:src="@drawable/darnitsa"
                         app:riv_corner_radius="@dimen/_8sdp"/>
 
                 <TextView
@@ -381,7 +381,7 @@
                         android:shadowDx="0"
                         android:shadowDy="0"
                         android:shadowRadius="10"
-                        android:text="@string/vydubychi"
+                        android:text="@string/darnitsa"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_13ssp"
                         android:textStyle="bold"/>
@@ -390,7 +390,6 @@
         </LinearLayout>
 
     </HorizontalScrollView>
-
 
     <me.ibrahimsn.lib.SmoothBottomBar
             android:id="@+id/bottomBar"
