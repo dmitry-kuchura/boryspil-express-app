@@ -1,14 +1,31 @@
 package com.dmytro.kuchura.kyiv.boryspil.express.models;
 
-import java.util.Date;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 
 public class Schedule {
+
+    @SerializedName("number")
     private String number;
+
+    @SerializedName("departureTrafficHub")
     private TrafficHub departureTrafficHub;
+
+    @SerializedName("arrivalTrafficHub")
     private TrafficHub arrivalTrafficHub;
+
+    @SerializedName("arrivalTrafficHub")
+    private ArrayList<Segment> segments;
+
+    @SerializedName("time")
     private String time;
-    private Date departureTime;
-    private Date arrivalTime;
+
+    @SerializedName("departureTime")
+    private String departureTime;
+
+    @SerializedName("arrivalTime")
+    private String arrivalTime;
 
     public String getNumber() {
         return number;
@@ -34,6 +51,14 @@ public class Schedule {
         this.arrivalTrafficHub = arrivalTrafficHub;
     }
 
+    public ArrayList<Segment> getSegments() {
+        return segments;
+    }
+
+    public void setSegments(ArrayList<Segment> segments) {
+        this.segments = segments;
+    }
+
     public String getTime() {
         return time;
     }
@@ -42,19 +67,19 @@ public class Schedule {
         this.time = time;
     }
 
-    public Date getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 
-    public Date getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Date arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 }

@@ -9,4 +9,5 @@
     <color name="colorTextHint">#BDBDBD</color>
     <color name="colorSelectedMenu">#408DED</color>
     <color name="colorBackground">#F2F5FE</color>
+    <color name="colorPlaceholder">#DDDDDD</color>
 </resources>

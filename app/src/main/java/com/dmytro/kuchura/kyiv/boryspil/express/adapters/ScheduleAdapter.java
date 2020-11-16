@@ -1,5 +1,6 @@
 package com.dmytro.kuchura.kyiv.boryspil.express.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,19 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.dmytro.kuchura.kyiv.boryspil.express.R;
-import com.dmytro.kuchura.kyiv.boryspil.express.ScheduleListener;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.Schedule;
 
 import java.util.List;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder> {
 
+    private Context context;
     private List<Schedule> schedules;
-    private ScheduleListener scheduleListener;
 
-    public ScheduleAdapter(List<Schedule> schedules, ScheduleListener scheduleListener) {
+
+    public ScheduleAdapter(Context context, List<Schedule> schedules) {
+        this.context = context;
         this.schedules = schedules;
-        this.scheduleListener = scheduleListener;
     }
 
     @NonNull
@@ -72,7 +73,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
         void bindSchedule(final Schedule schedule) {
             number.setText(schedule.getNumber());
-            tripDate.setText(schedule.getArrivalTime().toString());
+            tripDate.setText(schedule.getArrivalTime());
             departureTrafficHub.setText(schedule.getDepartureTrafficHub().getName());
             departureTrafficHubName.setText(schedule.getDepartureTrafficHub().getFullName());
             arrivalTrafficHub.setText(schedule.getArrivalTrafficHub().getName());

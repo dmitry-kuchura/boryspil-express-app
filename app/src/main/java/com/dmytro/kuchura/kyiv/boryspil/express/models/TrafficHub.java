@@ -3,6 +3,7 @@ package com.dmytro.kuchura.kyiv.boryspil.express.models;
 public class TrafficHub {
     private int id;
     private String name;
+    private String fullName;
 
     public int getId() {
         return id;
@@ -27,6 +28,4 @@ public class TrafficHub {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
-
-    private String fullName;
 }
