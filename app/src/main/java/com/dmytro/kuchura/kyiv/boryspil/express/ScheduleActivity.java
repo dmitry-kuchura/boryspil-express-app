@@ -52,7 +52,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
 
     private List<Schedule> getTrains() {
-        String url = "http://192.168.56.1:8080/api/trains";
+        String url = "http://138.197.186.137:8080/api/trains";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -113,20 +113,20 @@ public class ScheduleActivity extends AppCompatActivity {
         Schedule schedule = new Schedule();
 
         try {
-            String number = jsonObject.getString("Number");
+            int number = jsonObject.getInt("number");
 
-            JSONObject departure = jsonObject.getJSONObject("DepartureTrafficHub");
-            String departureName = departure.getString("Name");
-            String departureFullName = departure.getString("FullName");
+            JSONObject departure = jsonObject.getJSONObject("departureTrafficHub");
+            String departureName = departure.getString("name");
+            String departureFullName = departure.getString("fullName");
 
-            JSONObject arrival = jsonObject.getJSONObject("ArrivalTrafficHub");
-            String arrivalName = arrival.getString("Name");
-            String arrivalFullName = arrival.getString("FullName");
+            JSONObject arrival = jsonObject.getJSONObject("arrivalTrafficHub");
+            String arrivalName = arrival.getString("name");
+            String arrivalFullName = arrival.getString("fullName");
 
-            JSONObject segments = jsonObject.getJSONObject("Segments");
+            JSONArray segments = jsonObject.getJSONArray("segments");
 
-            String trainDepartureTime = jsonObject.getString("DepartureTime");
-            String trainArrivalTime = jsonObject.getString("ArrivalTime");
+            String trainDepartureTime = jsonObject.getString("departureTime");
+            String trainArrivalTime = jsonObject.getString("arrivalTime");
 
             TrafficHub departureTrafficHub = new TrafficHub();
             departureTrafficHub.setName(departureName);
@@ -184,7 +184,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
     @Override
     public void onPause() {
-        super.onPause();
         shimmerContainer.stopShimmer();
+        super.onPause();
     }
 }

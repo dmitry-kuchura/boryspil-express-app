@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Schedule {
 
     @SerializedName("number")
-    private String number;
+    private int number;
 
     @SerializedName("departureTrafficHub")
     private TrafficHub departureTrafficHub;
@@ -27,11 +27,11 @@ public class Schedule {
     @SerializedName("arrivalTime")
     private String arrivalTime;
 
-    public String getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 
