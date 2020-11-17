@@ -64,14 +64,56 @@ public class ScheduleActivity extends AppCompatActivity {
                     for (int i = 0; i < trainsResponse.length(); i++) {
                         JSONObject jsonObject = trainsResponse.getJSONObject(i);
 
-                        Schedule schedule = makeSchedule(jsonObject);
+                        Schedule schedule = new Schedule();
+
+                        int number = jsonObject.getInt("number");
+
+                        JSONObject departure = jsonObject.getJSONObject("departureTrafficHub");
+                        String departureName = departure.getString("name");
+                        String departureFullName = departure.getString("fullName");
+
+                        JSONObject arrival = jsonObject.getJSONObject("arrivalTrafficHub");
+                        String arrivalName = arrival.getString("name");
+                        String arrivalFullName = arrival.getString("fullName");
+
+                        JSONArray segments = jsonObject.getJSONArray("segments");
+
+                        String trainDepartureTime = jsonObject.getString("departureTime");
+                        String trainArrivalTime = jsonObject.getString("arrivalTime");
+
+                        TrafficHub departureTrafficHub = new TrafficHub();
+                        departureTrafficHub.setName(departureName);
+                        departureTrafficHub.setFullName(departureFullName);
+
+                        TrafficHub arrivalTrafficHub = new TrafficHub();
+                        arrivalTrafficHub.setName(arrivalName);
+                        arrivalTrafficHub.setFullName(arrivalFullName);
+
+                        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+                        Date now = new Date();
+
+                        now.setHours(1);
+                        now.setMinutes(7);
+                        String departureTime = format.format(now);
+
+                        now.setHours(1);
+                        now.setMinutes(45);
+                        String arrivalTime = format.format(now);
+
+                        String diff = getDiffTime(departureTime, arrivalTime);
+
+                        schedule.setNumber(number);
+                        schedule.setDepartureTime(departureTime);
+                        schedule.setDepartureTrafficHub(arrivalTrafficHub);
+                        schedule.setArrivalTime(arrivalTime);
+                        schedule.setArrivalTrafficHub(departureTrafficHub);
+                        schedule.setTime(diff);
 
                         scheduleList.add(schedule);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -107,60 +149,6 @@ public class ScheduleActivity extends AppCompatActivity {
         long diffHours = diff / (60 * 60 * 1000);
 
         return diffHours + ":" + diffMinutes + "";
-    }
-
-    public Schedule makeSchedule(JSONObject jsonObject) {
-        Schedule schedule = new Schedule();
-
-        try {
-            int number = jsonObject.getInt("number");
-
-            JSONObject departure = jsonObject.getJSONObject("departureTrafficHub");
-            String departureName = departure.getString("name");
-            String departureFullName = departure.getString("fullName");
-
-            JSONObject arrival = jsonObject.getJSONObject("arrivalTrafficHub");
-            String arrivalName = arrival.getString("name");
-            String arrivalFullName = arrival.getString("fullName");
-
-            JSONArray segments = jsonObject.getJSONArray("segments");
-
-            String trainDepartureTime = jsonObject.getString("departureTime");
-            String trainArrivalTime = jsonObject.getString("arrivalTime");
-
-            TrafficHub departureTrafficHub = new TrafficHub();
-            departureTrafficHub.setName(departureName);
-            departureTrafficHub.setFullName(departureFullName);
-
-            TrafficHub arrivalTrafficHub = new TrafficHub();
-            arrivalTrafficHub.setName(arrivalName);
-            arrivalTrafficHub.setFullName(arrivalFullName);
-
-            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-            Date now = new Date();
-
-            now.setHours(1);
-            now.setMinutes(7);
-            String departureTime = format.format(now);
-
-            now.setHours(1);
-            now.setMinutes(45);
-            String arrivalTime = format.format(now);
-
-            String diff = this.getDiffTime(departureTime, arrivalTime);
-
-            schedule.setNumber(number);
-            schedule.setDepartureTime(departureTime);
-            schedule.setDepartureTrafficHub(arrivalTrafficHub);
-            schedule.setArrivalTime(arrivalTime);
-            schedule.setArrivalTrafficHub(departureTrafficHub);
-            schedule.setTime(diff);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return schedule;
     }
 
     @Override
