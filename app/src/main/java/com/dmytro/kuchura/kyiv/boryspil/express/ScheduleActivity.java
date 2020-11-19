@@ -132,14 +132,11 @@ public class ScheduleActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                //add Books to final mBookItemList list
                 scheduleList.clear();
                 scheduleList.addAll(scheduleItems);
 
-                //refresh recyclerView
                 scheduleAdapter.notifyDataSetChanged();
 
-                //shimmerAnimation stop and hide
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
 
