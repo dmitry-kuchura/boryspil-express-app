@@ -1,8 +1,12 @@
 package com.dmytro.kuchura.kyiv.boryspil.express;
 
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,38 +29,51 @@ import java.util.Date;
 import java.util.List;
 
 public class ScheduleActivity extends AppCompatActivity {
-    private ShimmerFrameLayout shimmerContainer;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager recyclerViewLayoutManager;
     private List<Schedule> scheduleList;
+    private ScheduleAdapter scheduleAdapter;
+
+    private ShimmerFrameLayout shimmerFrameLayout;
     private RequestQueue requestQueue;
+
     private long backPressedTime;
     private Toast backToast;
+
+    private static final String URL = "http://138.197.186.137:8080/api/trains";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-        shimmerContainer = findViewById(R.id.shimmer_view_container);
-
-        RecyclerView recyclerView = findViewById(R.id.scheduleRecyclerView);
+        requestQueue = Volley.newRequestQueue(this);
+        recyclerView = findViewById(R.id.scheduleRecyclerView);
+        shimmerFrameLayout = findViewById(R.id.shimmer_view_container);
 
         scheduleList = new ArrayList<>();
+        scheduleAdapter = new ScheduleAdapter(this, scheduleList);
+        recyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
 
-        requestQueue = Volley.newRequestQueue(this);
-
-        scheduleList = getTrains();
-
-        final ScheduleAdapter scheduleAdapter = new ScheduleAdapter(ScheduleActivity.this, scheduleList);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.setLayoutManager(recyclerViewLayoutManager);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(scheduleAdapter);
+
+        getTrains();
     }
 
-
-    private List<Schedule> getTrains() {
-        String url = "http://138.197.186.137:8080/api/trains";
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+    private void getTrains() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.d("tag", "Albums Response: " + response.toString());
+                List<Schedule> scheduleItems = new ArrayList<>();
+
+                if (response == null) {
+                    Toast.makeText(ScheduleActivity.this, "Something went wrong...", Toast.LENGTH_SHORT).show();
+                }
+
                 try {
                     JSONObject dataResponse = response.getJSONObject("data");
                     JSONArray trainsResponse = dataResponse.getJSONArray("trains");
@@ -109,22 +126,32 @@ public class ScheduleActivity extends AppCompatActivity {
                         schedule.setArrivalTrafficHub(departureTrafficHub);
                         schedule.setTime(diff);
 
-                        scheduleList.add(schedule);
+                        scheduleItems.add(schedule);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                //add Books to final mBookItemList list
+                scheduleList.clear();
+                scheduleList.addAll(scheduleItems);
+
+                //refresh recyclerView
+                scheduleAdapter.notifyDataSetChanged();
+
+                //shimmerAnimation stop and hide
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+                Toast.makeText(ScheduleActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
         requestQueue.add(request);
-
-        return scheduleList;
     }
 
     public String getDiffTime(String departureTime, String arrivalTime) {
@@ -167,12 +194,12 @@ public class ScheduleActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        shimmerContainer.startShimmer();
+        shimmerFrameLayout.startShimmer();
     }
 
     @Override
     public void onPause() {
-        shimmerContainer.stopShimmer();
+        shimmerFrameLayout.stopShimmer();
         super.onPause();
     }
 }
