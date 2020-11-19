@@ -29,8 +29,6 @@ import java.util.Date;
 import java.util.List;
 
 public class ScheduleActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager recyclerViewLayoutManager;
     private List<Schedule> scheduleList;
     private ScheduleAdapter scheduleAdapter;
 
@@ -48,12 +46,12 @@ public class ScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_schedule);
 
         requestQueue = Volley.newRequestQueue(this);
-        recyclerView = findViewById(R.id.scheduleRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.scheduleRecyclerView);
         shimmerFrameLayout = findViewById(R.id.shimmer_view_container);
 
         scheduleList = new ArrayList<>();
         scheduleAdapter = new ScheduleAdapter(this, scheduleList);
-        recyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
 
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(recyclerViewLayoutManager);
@@ -67,12 +65,8 @@ public class ScheduleActivity extends AppCompatActivity {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("tag", "Albums Response: " + response.toString());
+                Log.d("response", "Trains response: " + response.toString());
                 List<Schedule> scheduleItems = new ArrayList<>();
-
-                if (response == null) {
-                    Toast.makeText(ScheduleActivity.this, "Something went wrong...", Toast.LENGTH_SHORT).show();
-                }
 
                 try {
                     JSONObject dataResponse = response.getJSONObject("data");
