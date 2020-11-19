@@ -90,7 +90,10 @@ public class ScheduleActivity extends AppCompatActivity {
                         JSONArray segments = jsonObject.getJSONArray("segments");
 
                         String trainDepartureTime = jsonObject.getString("departureTime");
+                        String[] trainDepartureTimes = trainDepartureTime.split(":");
+
                         String trainArrivalTime = jsonObject.getString("arrivalTime");
+                        String[] trainArrivalTimes = trainArrivalTime.split(":");
 
                         TrafficHub departureTrafficHub = new TrafficHub();
                         departureTrafficHub.setName(departureName);
@@ -103,21 +106,21 @@ public class ScheduleActivity extends AppCompatActivity {
                         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
                         Date now = new Date();
 
-                        now.setHours(1);
-                        now.setMinutes(7);
+                        now.setHours(Integer.parseInt(trainDepartureTimes[0]));
+                        now.setMinutes(Integer.parseInt(trainDepartureTimes[1]));
                         String departureTime = format.format(now);
 
-                        now.setHours(1);
-                        now.setMinutes(45);
+                        now.setHours(Integer.parseInt(trainArrivalTimes[0]));
+                        now.setMinutes(Integer.parseInt(trainArrivalTimes[1]));
                         String arrivalTime = format.format(now);
 
                         String diff = getDiffTime(departureTime, arrivalTime);
 
                         schedule.setNumber(number);
                         schedule.setDepartureTime(departureTime);
-                        schedule.setDepartureTrafficHub(arrivalTrafficHub);
+                        schedule.setDepartureTrafficHub(departureTrafficHub);
                         schedule.setArrivalTime(arrivalTime);
-                        schedule.setArrivalTrafficHub(departureTrafficHub);
+                        schedule.setArrivalTrafficHub(arrivalTrafficHub);
                         schedule.setTime(diff);
 
                         scheduleItems.add(schedule);
