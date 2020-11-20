@@ -17,16 +17,18 @@ import com.android.volley.toolbox.Volley;
 import com.dmytro.kuchura.kyiv.boryspil.express.adapters.ScheduleAdapter;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.Schedule;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.TrafficHub;
+import com.dmytro.kuchura.kyiv.boryspil.express.utils.Diff;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static com.dmytro.kuchura.kyiv.boryspil.express.utils.Api.Url.API_TRAINS_LIST;
 
 public class ScheduleActivity extends AppCompatActivity {
     private List<Schedule> scheduleList;
@@ -38,7 +40,7 @@ public class ScheduleActivity extends AppCompatActivity {
     private long backPressedTime;
     private Toast backToast;
 
-    private static final String URL = "http://138.197.186.137:8080/api/trains";
+    private static final String URL = API_TRAINS_LIST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +116,7 @@ public class ScheduleActivity extends AppCompatActivity {
                         now.setMinutes(Integer.parseInt(trainArrivalTimes[1]));
                         String arrivalTime = format.format(now);
 
-                        String diff = getDiffTime(departureTime, arrivalTime);
+                        String diff = Diff.getDiffTime(departureTime, arrivalTime);
 
                         schedule.setNumber(number);
                         schedule.setDepartureTime(departureTime);
@@ -148,29 +150,6 @@ public class ScheduleActivity extends AppCompatActivity {
         requestQueue.add(request);
     }
 
-    public String getDiffTime(String departureTime, String arrivalTime) {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-
-        Date from = null;
-        Date to = null;
-
-        try {
-            from = format.parse(departureTime);
-            to = format.parse(arrivalTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        assert to != null;
-        assert from != null;
-
-        long diff = to.getTime() - from.getTime();
-
-        long diffMinutes = diff / (60 * 1000);
-        long diffHours = diff / (60 * 60 * 1000);
-
-        return diffHours + ":" + diffMinutes + "";
-    }
 
     @Override
     public void onBackPressed() {
