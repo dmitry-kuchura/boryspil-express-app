@@ -1,7 +1,13 @@
 package com.dmytro.kuchura.kyiv.boryspil.express.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Segment {
+    
+    @SerializedName("departureTime")
     private String departureTime;
+
+    @SerializedName("trafficHub")
     private TrafficHub trafficHub;
 
     public String getDepartureTime() {

@@ -1,16 +1,24 @@
 package com.dmytro.kuchura.kyiv.boryspil.express.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class TrafficHub {
-    private int id;
+
+    @SerializedName("code")
+    private int code;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("fullName")
     private String fullName;
 
-    public int getId() {
-        return id;
+    public int getCode() {
+        return code;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getName() {
