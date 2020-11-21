@@ -115,7 +115,8 @@
                     android:src="@drawable/ic_location"
                     app:tint="@color/colorTextHint"/>
 
-            <EditText
+            <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_marginStart="@dimen/_8sdp"
@@ -290,13 +291,13 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-            android:id="@+id/textPopular"
+            android:id="@+id/textInformation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:text="@string/popular"
+            android:text="@string/information"
             android:textColor="@color/colorTextPrimary"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/cardTripsList"/>
@@ -312,7 +313,7 @@
             android:paddingEnd="@dimen/_15sdp"
             android:scrollbars="none"
             app:layout_constraintBottom_toTopOf="@id/bottomBar"
-            app:layout_constraintTop_toBottomOf="@id/textPopular">
+            app:layout_constraintTop_toBottomOf="@id/textInformation">
 
         <LinearLayout
                 android:layout_width="wrap_content"

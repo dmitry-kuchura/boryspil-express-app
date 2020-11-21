@@ -3,7 +3,7 @@
     <string name="traveling">traveling</string>
     <string name="from">from ?</string>
     <string name="where_are_you">Where are you</string>
-    <string name="enter_your_departure">Enter your departure</string>
+    <string name="enter_your_departure">Enter your departure station</string>
     <string name="all">All</string>
     <string name="upcoming_trips">Upcoming Trips</string>
     <string name="boryspil_express">Boryspil Express</string>
@@ -13,7 +13,7 @@
     <string name="account">Account</string>
     <string name="vydubychi">Vydubychi</string>
     <string name="kyiv">Kyiv</string>
-    <string name="popular">Popular</string>
+    <string name="information">Information</string>
     <string name="darnitsa">Darnitsa</string>
     <string name="press_again_to_exit">Press again to exit</string>
 </resources>
