@@ -7,5 +7,14 @@
     <string name="kyiv">Киев</string>
     <string name="boryspil_express">Boryspil Express</string>
     <string name="all">Все</string>
-    <string name="from">откуда ?</string>
+    <string name="from">отправляться ?</string>
+    <string name="information">Информация</string>
+    <string name="vydubychi">Выдубичи</string>
+    <string name="account">Аккаунт</string>
+    <string name="schedule">Расписание</string>
+    <string name="home">Главная</string>
+    <string name="enter_your_departure">Введите станцию отправления</string>
+    <string name="upcoming_trips">Будущие рейсы</string>
+    <string name="where_are_you">Откуда вы</string>
+    <string name="traveling">будете</string>
 </resources>

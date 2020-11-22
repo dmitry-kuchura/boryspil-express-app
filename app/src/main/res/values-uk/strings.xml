@@ -12,5 +12,9 @@
     <string name="home">Головна</string>
     <string name="boryspil_express">Boryspil Express</string>
     <string name="all">Усі</string>
-    <string name="from">звідки ?</string>
+    <string name="from">відправлятися ?</string>
+    <string name="enter_your_departure">Введіть станцію відправлення</string>
+    <string name="upcoming_trips">Майбутні рейси</string>
+    <string name="traveling">будете</string>
+    <string name="where_are_you">Звідки ви</string>
 </resources>
