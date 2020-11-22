@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kyiv Boryspil Express</string>
+    <string name="power_by">Dmytro Kuchura</string>
+    <string name="press_again_to_exit">Press again to exit</string>
+    <string name="darnitsa">Darnitsa</string>
+    <string name="kyiv">Kyiv</string>
+    <string name="vydubychi">Vydubychi</string>
+    <string name="boryspil_express">Boryspil Express</string>
+    <string name="upcoming_trips">Upcoming Trips</string>
+    <string name="all">All</string>
+    <string name="home">Home</string>
+    <string name="schedule">Schedule</string>
+    <string name="account">Account</string>
+    <string name="_6_nov_09_40">6 Nov, 09:40</string>
+    <string name="enter_your_departure">Enter your departure station</string>
+    <string name="where_are_you">Where are you</string>
+    <string name="from">from ?</string>
+    <string name="traveling">traveling</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kyiv Boryspil Express</string>
+    <string name="power_by">Dmytro Kuchura</string>
+    <string name="press_again_to_exit">Натисніть ще раз щоб вийти</string>
+    <string name="darnitsa">Дарниця</string>
+    <string name="kyiv">Київ</string>
+    <string name="vydubychi">Видубічі</string>
+    <string name="information">Інформація</string>
+    <string name="account">Аккаунт</string>
+    <string name="schedule">Розклад</string>
+    <string name="home">Головна</string>
+    <string name="boryspil_express">Boryspil Express</string>
+    <string name="all">Усі</string>
+    <string name="from">звідки ?</string>
+</resources>

@@ -169,138 +169,52 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/imageRightArrow"/>
 
-    <androidx.cardview.widget.CardView
-            android:id="@+id/cardTripsList"
+    <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerMainContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            app:cardCornerRadius="@dimen/_10sdp"
-            app:cardElevation="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@id/imageRightArrow">
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/textAll">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingBottom="@dimen/_6sdp">
+                android:layout_height="500dp"
+                android:orientation="vertical">
 
-            <TextView
-                    android:id="@+id/tripNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="№804"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/_10ssp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+            <include layout="@layout/schedule_list_item_placeholder"/>
 
-            <TextView
-                    android:id="@+id/textTripDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_6_nov_09_40"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/_10ssp"
-                    android:paddingStart="@dimen/_5sdp"
-                    app:layout_constraintStart_toEndOf="@id/tripNumber"
-                    app:layout_constraintTop_toTopOf="parent"/>
+        </LinearLayout>
 
-            <TextView
-                    android:id="@+id/departureTrafficHub"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Киев"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/_14ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textTripDate"/>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
-            <TextView
-                    android:id="@+id/departureTrafficHubName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Центральный ж\д вокзал"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/departureTrafficHub"/>
-
-
-            <TextView
-                    android:id="@+id/textTripTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10:20"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/_10ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-            <TextView
-                    android:id="@+id/arrivalTrafficHub"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Борисполь"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/_14ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textTripTime"/>
-
-            <TextView
-                    android:id="@+id/arrivalTrafficHubName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Международный аэропорт"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/arrivalTrafficHub"/>
-
-            <View
-                    android:id="@+id/viewLine"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="2dp"
-                    android:background="@color/colorTextHint"
-                    app:layout_constraintBottom_toBottomOf="@id/arrivalTrafficHub"
-                    app:layout_constraintEnd_toStartOf="@id/arrivalTrafficHub"
-                    app:layout_constraintStart_toEndOf="@id/departureTrafficHub"
-                    app:layout_constraintTop_toTopOf="@id/departureTrafficHub"/>
-
-            <ImageView
-                    android:layout_width="@dimen/_22sdp"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_train"
-                    app:layout_constraintBottom_toBottomOf="@id/viewLine"
-                    app:layout_constraintEnd_toEndOf="@id/viewLine"
-                    app:layout_constraintStart_toStartOf="@id/viewLine"
-                    app:layout_constraintTop_toTopOf="@id/viewLine"
-                    app:tint="@color/colorTextPrimary"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/textAll"/>
 
     <TextView
             android:id="@+id/textInformation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_110sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:text="@string/information"
             android:textColor="@color/colorTextPrimary"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/cardTripsList"/>
+            app:layout_constraintTop_toBottomOf="@id/textAll"/>
 
     <HorizontalScrollView
             android:layout_width="match_parent"

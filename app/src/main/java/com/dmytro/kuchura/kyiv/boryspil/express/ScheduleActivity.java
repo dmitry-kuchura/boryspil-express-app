@@ -1,6 +1,5 @@
 package com.dmytro.kuchura.kyiv.boryspil.express;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +16,7 @@ import com.android.volley.toolbox.Volley;
 import com.dmytro.kuchura.kyiv.boryspil.express.adapters.ScheduleAdapter;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.Schedule;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.TrafficHub;
-import com.dmytro.kuchura.kyiv.boryspil.express.utils.Diff;
+import com.dmytro.kuchura.kyiv.boryspil.express.utils.TimeDiff;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +48,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
         RecyclerView recyclerView = findViewById(R.id.scheduleRecyclerView);
-        shimmerFrameLayout = findViewById(R.id.shimmer_view_container);
+        shimmerFrameLayout = findViewById(R.id.shimmerViewContainer);
 
         scheduleList = new ArrayList<>();
         scheduleAdapter = new ScheduleAdapter(this, scheduleList);
@@ -67,7 +66,6 @@ public class ScheduleActivity extends AppCompatActivity {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("response", "Trains response: " + response.toString());
                 List<Schedule> scheduleItems = new ArrayList<>();
 
                 try {
@@ -116,7 +114,7 @@ public class ScheduleActivity extends AppCompatActivity {
                         now.setMinutes(Integer.parseInt(trainArrivalTimes[1]));
                         String arrivalTime = format.format(now);
 
-                        String diff = Diff.getDiffTime(departureTime, arrivalTime);
+                        String diff = TimeDiff.getDiffTime(departureTime, arrivalTime);
 
                         schedule.setNumber(number);
                         schedule.setDepartureTime(departureTime);
@@ -149,7 +147,6 @@ public class ScheduleActivity extends AppCompatActivity {
 
         requestQueue.add(request);
     }
-
 
     @Override
     public void onBackPressed() {

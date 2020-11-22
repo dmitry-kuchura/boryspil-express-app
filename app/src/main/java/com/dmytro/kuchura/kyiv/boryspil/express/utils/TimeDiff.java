@@ -6,7 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Diff {
+public class TimeDiff {
 
     public static String getDiffTime(String departureTime, String arrivalTime) {
         @SuppressLint("SimpleDateFormat")
