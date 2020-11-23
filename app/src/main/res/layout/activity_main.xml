@@ -243,7 +243,7 @@
                         android:layout_width="@dimen/_100sdp"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/vydubychi"
+                        android:src="@drawable/kyiv"
                         app:riv_corner_radius="@dimen/_8sdp"/>
 
                 <TextView
@@ -255,7 +255,7 @@
                         android:shadowDx="0"
                         android:shadowDy="0"
                         android:shadowRadius="10"
-                        android:text="@string/vydubychi"
+                        android:text="@string/kyiv"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_13ssp"
                         android:textStyle="bold"/>
@@ -270,7 +270,7 @@
                         android:layout_width="@dimen/_100sdp"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/kyiv"
+                        android:src="@drawable/vydubychi"
                         app:riv_corner_radius="@dimen/_8sdp"/>
 
                 <TextView
@@ -282,7 +282,7 @@
                         android:shadowDx="0"
                         android:shadowDy="0"
                         android:shadowRadius="10"
-                        android:text="@string/kyiv"
+                        android:text="@string/vydubychi"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_13ssp"
                         android:textStyle="bold"/>

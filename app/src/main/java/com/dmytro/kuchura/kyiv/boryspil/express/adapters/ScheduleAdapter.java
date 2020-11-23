@@ -73,7 +73,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
 
         void bindSchedule(final Schedule schedule) {
             number.setText("№" + schedule.getNumber() + "");
-            tripDate.setText(schedule.getArrivalTime());
+            tripDate.setText(schedule.getDepartureTime());
             departureTrafficHub.setText(schedule.getDepartureTrafficHub().getName());
             departureTrafficHubName.setText(schedule.getDepartureTrafficHub().getFullName());
             arrivalTrafficHub.setText(schedule.getArrivalTrafficHub().getName());
