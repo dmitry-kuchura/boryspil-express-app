@@ -8,7 +8,7 @@
                 android:angle="45"
                 android:endColor="#0069C6"
                 android:centerColor="#4279BC"
-                android:startColor="#E1C843"
+                android:startColor="#FFFFFF"
                 android:type="linear" />
         </shape>
     </item>

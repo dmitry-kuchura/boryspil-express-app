@@ -160,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-            android:text="@string/upcoming_trips"
+            android:text="@string/current_trips"
             android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"

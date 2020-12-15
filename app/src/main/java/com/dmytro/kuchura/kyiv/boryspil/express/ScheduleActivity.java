@@ -2,11 +2,15 @@ package com.dmytro.kuchura.kyiv.boryspil.express;
 
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,6 +22,8 @@ import com.dmytro.kuchura.kyiv.boryspil.express.models.Schedule;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.TrafficHub;
 import com.dmytro.kuchura.kyiv.boryspil.express.utils.TimeDiff;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.tabs.TabLayout;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,9 +41,12 @@ public class ScheduleActivity extends AppCompatActivity {
 
     private ShimmerFrameLayout shimmerFrameLayout;
     private RequestQueue requestQueue;
+    private TabLayout tabLayout;
 
     private long backPressedTime;
     private Toast backToast;
+
+    private boolean showOutbound;
 
     private static final String URL = API_TRAINS_LIST;
 
@@ -45,6 +54,10 @@ public class ScheduleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+
+        showOutbound = true;
+
+        tabLayout = findViewById(R.id.scheduleTabs);
 
         requestQueue = Volley.newRequestQueue(this);
         RecyclerView recyclerView = findViewById(R.id.scheduleRecyclerView);
@@ -60,6 +73,24 @@ public class ScheduleActivity extends AppCompatActivity {
         recyclerView.setAdapter(scheduleAdapter);
 
         getTrains();
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                showOutbound = tabLayout.getSelectedTabPosition() != 1;
+                getTrains();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                showOutbound = tabLayout.getSelectedTabPosition() != 1;
+                getTrains();
+            }
+        });
     }
 
     private void getTrains() {
@@ -78,6 +109,8 @@ public class ScheduleActivity extends AppCompatActivity {
                         Schedule schedule = new Schedule();
 
                         int number = jsonObject.getInt("number");
+
+                        boolean isOutbound = jsonObject.getBoolean("isOutbound");
 
                         JSONObject departure = jsonObject.getJSONObject("departureTrafficHub");
                         String departureName = departure.getString("name");
@@ -123,7 +156,15 @@ public class ScheduleActivity extends AppCompatActivity {
                         schedule.setArrivalTrafficHub(arrivalTrafficHub);
                         schedule.setTime(diff);
 
-                        scheduleItems.add(schedule);
+                        if (showOutbound) {
+                            if (isOutbound) {
+                                scheduleItems.add(schedule);
+                            }
+                        } else {
+                            if (!isOutbound) {
+                                scheduleItems.add(schedule);
+                            }
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

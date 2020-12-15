@@ -17,4 +17,7 @@
     <string name="upcoming_trips">Майбутні рейси</string>
     <string name="traveling">будете</string>
     <string name="where_are_you">Звідки ви</string>
+    <string name="current_trips">Поточні рейси</string>
+    <string name="outbound">Outbound</string>
+    <string name="inbound">Inbound</string>
 </resources>
