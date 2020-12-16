@@ -194,7 +194,7 @@
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mainRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="180dp"
             android:clipToPadding="false"
             android:orientation="vertical"
             android:padding="5dp"
@@ -209,12 +209,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_110sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:text="@string/information"
             android:textColor="@color/colorTextPrimary"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/textAll"/>
+            app:layout_constraintTop_toBottomOf="@id/mainRecyclerView"/>
 
     <HorizontalScrollView
             android:layout_width="match_parent"
