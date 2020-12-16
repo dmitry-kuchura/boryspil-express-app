@@ -59,9 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/scheduleRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/scheduleHeader"
-        app:tabContentStart="@dimen/_90ssp"
-        app:tabMode="scrollable">
+        app:layout_constraintTop_toBottomOf="@+id/scheduleHeader">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

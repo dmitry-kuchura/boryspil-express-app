@@ -18,6 +18,7 @@
     <string name="darnitsa">Darnitsa</string>
     <string name="press_again_to_exit">Press again to exit</string>
     <string name="power_by">Dmytro Kuchura</string>
-    <string name="outbound">Outbound</string>
-    <string name="inbound">Inbound</string>
+    <string name="outbound">To airport</string>
+    <string name="inbound">From airport</string>
+    <string name="news">News</string>
 </resources>

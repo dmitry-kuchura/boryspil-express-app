@@ -19,6 +19,7 @@
     <string name="where_are_you">Звідки ви</string>
     <string name="current_trips">Поточні рейси</string>
     <string name="outbound">До аеропорту</string>
-    <string name="inbound">До міста</string>
+    <string name="inbound">З аеропорту</string>
     <string name="_6_nov_09_40">6 Лис, 09:40</string>
+    <string name="news">Новини</string>
 </resources>

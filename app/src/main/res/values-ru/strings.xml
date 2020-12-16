@@ -19,6 +19,7 @@
     <string name="traveling">будете</string>
     <string name="current_trips">Текущие рейсы</string>
     <string name="outbound">В аэропорт</string>
-    <string name="inbound">В город</string>
+    <string name="inbound">Из аэропорта</string>
     <string name="_6_nov_09_40">6 Ноя, 09:40</string>
+    <string name="news">Новости</string>
 </resources>

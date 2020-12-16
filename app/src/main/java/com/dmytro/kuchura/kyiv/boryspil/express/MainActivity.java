@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import me.ibrahimsn.lib.OnItemSelectedListener;
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 import static com.dmytro.kuchura.kyiv.boryspil.express.utils.Api.Url.API_CURRENT_TRAINS_LIST;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SmoothBottomBar bottomBar = findViewById(R.id.bottomBar);
+        bottomBar.setItemActiveIndex(0);
+
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
         autoCompleteTextView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, stations));
 
@@ -69,6 +75,21 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(scheduleAdapter);
 
         getTrains();
+
+        bottomBar.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public boolean onItemSelect(int i) {
+                if (i == 0) {
+                    getTrains();
+                }
+
+                if (i == 1) {
+                    showFullSchedule();
+                }
+
+                return true;
+            }
+        });
     }
 
     private void getTrains() {
@@ -156,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(request);
     }
 
-    public void showFullSchedule(View view) {
+    public void showFullSchedule() {
         Intent fullSchedule = new Intent(MainActivity.this, ScheduleActivity.class);
         startActivity(fullSchedule);
 

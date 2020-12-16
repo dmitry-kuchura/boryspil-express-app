@@ -1,5 +1,7 @@
 package com.dmytro.kuchura.kyiv.boryspil.express;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -33,6 +35,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import me.ibrahimsn.lib.OnItemSelectedListener;
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 import static com.dmytro.kuchura.kyiv.boryspil.express.utils.Api.Url.API_TRAINS_LIST;
 
 public class ScheduleActivity extends AppCompatActivity {
@@ -58,6 +63,9 @@ public class ScheduleActivity extends AppCompatActivity {
         showOutbound = true;
 
         tabLayout = findViewById(R.id.scheduleTabs);
+
+        SmoothBottomBar bottomBar = findViewById(R.id.bottomBar);
+        bottomBar.setItemActiveIndex(1);
 
         requestQueue = Volley.newRequestQueue(this);
         RecyclerView recyclerView = findViewById(R.id.scheduleRecyclerView);
@@ -91,6 +99,26 @@ public class ScheduleActivity extends AppCompatActivity {
                 getTrains();
             }
         });
+
+        bottomBar.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public boolean onItemSelect(int i) {
+                if (i == 0) {
+                    showMainActivity();
+                }
+
+                if (i == 1) {
+                    getTrains();
+                }
+
+                return true;
+            }
+        });
+    }
+
+    public void showMainActivity() {
+        startActivity(new Intent(ScheduleActivity.this, MainActivity.class));
+        finish();
     }
 
     private void getTrains() {
