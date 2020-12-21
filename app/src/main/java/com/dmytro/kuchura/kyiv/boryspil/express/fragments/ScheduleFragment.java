@@ -200,4 +200,16 @@ public class ScheduleFragment extends Fragment {
 
         requestQueue.add(request);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmer();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmer();
+        super.onPause();
+    }
 }

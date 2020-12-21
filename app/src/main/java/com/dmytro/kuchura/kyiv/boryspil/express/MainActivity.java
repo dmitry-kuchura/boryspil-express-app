@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     final Fragment scheduleFragment = new ScheduleFragment();
     final Fragment infoFragment = new InfoFragment();
     final FragmentManager fragmentManager = getSupportFragmentManager();
+
     Fragment active = mainFragment;
 
     @Override
@@ -26,17 +27,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setOnNavigationItemReselectedListener(mOnNavigationItemReselectedListener);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
+        navigation.setOnNavigationItemReselectedListener(onNavigationItemReselectedListener);
 
         fragmentManager.beginTransaction().add(R.id.main_container, infoFragment, "3").hide(infoFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, scheduleFragment, "2").hide(scheduleFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, mainFragment, "1").commit();
-
     }
 
-    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private final BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (String.valueOf(item)) {
                 case "Home":
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private final BottomNavigationView.OnNavigationItemReselectedListener mOnNavigationItemReselectedListener = new BottomNavigationView.OnNavigationItemReselectedListener() {
+    private final BottomNavigationView.OnNavigationItemReselectedListener onNavigationItemReselectedListener = new BottomNavigationView.OnNavigationItemReselectedListener() {
         @Override
         public void onNavigationItemReselected(@NonNull MenuItem item) {
             switch (String.valueOf(item)) {

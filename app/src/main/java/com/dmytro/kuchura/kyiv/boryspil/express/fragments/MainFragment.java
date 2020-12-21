@@ -3,6 +3,7 @@ package com.dmytro.kuchura.kyiv.boryspil.express.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,11 +27,11 @@ import com.dmytro.kuchura.kyiv.boryspil.express.models.Schedule;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.TrafficHub;
 import com.dmytro.kuchura.kyiv.boryspil.express.utils.TimeDiff;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -84,26 +85,17 @@ public class MainFragment extends Fragment {
 
         getTrains();
 
-//        TextView allText = (TextView) view.findViewById(R.id.textAll);
-//
-//        // создаем обработчик нажатия
-//        View.OnClickListener onClickAllText = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Меняем текст в TextView (tvOut)
-//            }
-//        };
-//
-//        allText.setOnClickListener(onClickAllText);
+        TextView allText = view.findViewById(R.id.textAll);
+        allText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, new ScheduleFragment());
+                fragmentTransaction.commit();
+            }
+        });
 
         return view;
-    }
-
-    public void showFullSchedule() {
-//        Intent fullSchedule = new Intent(MainActivity.this, ScheduleActivity.class);
-//        startActivity(fullSchedule);
-//
-//        finish();
     }
 
     private void getTrains() {
@@ -189,5 +181,17 @@ public class MainFragment extends Fragment {
         });
 
         requestQueue.add(request);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmer();
+    }
+
+    @Override
+    public void onPause() {
+        shimmerFrameLayout.stopShimmer();
+        super.onPause();
     }
 }
