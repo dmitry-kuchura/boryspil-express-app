@@ -1,17 +1,16 @@
-package com.dmytro.kuchura.kyiv.boryspil.express;
-
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.dmytro.kuchura.kyiv.boryspil.express.fragments;
 
 import android.os.Bundle;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.dmytro.kuchura.kyiv.boryspil.express.R;
 import com.dmytro.kuchura.kyiv.boryspil.express.adapters.ScheduleAdapter;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.Schedule;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.TrafficHub;
@@ -35,12 +35,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import me.ibrahimsn.lib.OnItemSelectedListener;
-import me.ibrahimsn.lib.SmoothBottomBar;
-
 import static com.dmytro.kuchura.kyiv.boryspil.express.utils.Api.Url.API_TRAINS_LIST;
 
-public class ScheduleActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ * create an instance of this fragment.
+ */
+public class ScheduleFragment extends Fragment {
+
     private List<Schedule> scheduleList;
     private ScheduleAdapter scheduleAdapter;
 
@@ -55,27 +57,27 @@ public class ScheduleActivity extends AppCompatActivity {
 
     private static final String URL = API_TRAINS_LIST;
 
+    public ScheduleFragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         showOutbound = true;
 
-        tabLayout = findViewById(R.id.scheduleTabs);
+        tabLayout = view.findViewById(R.id.scheduleTabs);
 
-        SmoothBottomBar bottomBar = findViewById(R.id.bottomBar);
-        bottomBar.setItemActiveIndex(1);
-
-        requestQueue = Volley.newRequestQueue(this);
-        RecyclerView recyclerView = findViewById(R.id.scheduleRecyclerView);
-        shimmerFrameLayout = findViewById(R.id.shimmerViewContainer);
+        requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        RecyclerView recyclerView = view.findViewById(R.id.scheduleRecyclerView);
+        shimmerFrameLayout = view.findViewById(R.id.shimmerViewContainer);
 
         scheduleList = new ArrayList<>();
-        scheduleAdapter = new ScheduleAdapter(this, scheduleList);
-        RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
+        scheduleAdapter = new ScheduleAdapter(getActivity().getApplicationContext(), scheduleList);
+        RecyclerView.LayoutManager recyclerViewLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(recyclerViewLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(scheduleAdapter);
@@ -100,25 +102,7 @@ public class ScheduleActivity extends AppCompatActivity {
             }
         });
 
-        bottomBar.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public boolean onItemSelect(int i) {
-                if (i == 0) {
-                    showMainActivity();
-                }
-
-                if (i == 1) {
-                    getTrains();
-                }
-
-                return true;
-            }
-        });
-    }
-
-    public void showMainActivity() {
-        startActivity(new Intent(ScheduleActivity.this, MainActivity.class));
-        finish();
+        return view;
     }
 
     private void getTrains() {
@@ -210,35 +194,10 @@ public class ScheduleActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(ScheduleActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
         requestQueue.add(request);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (backPressedTime + 2000 > System.currentTimeMillis()) {
-            backToast.cancel();
-            super.onBackPressed();
-        } else {
-            backToast = Toast.makeText(getBaseContext(), R.string.press_again_to_exit, Toast.LENGTH_SHORT);
-            backToast.show();
-        }
-
-        backPressedTime = System.currentTimeMillis();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        shimmerFrameLayout.startShimmer();
-    }
-
-    @Override
-    public void onPause() {
-        shimmerFrameLayout.stopShimmer();
-        super.onPause();
     }
 }
