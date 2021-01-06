@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.TripFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.TripFragment">
+
+        <LinearLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="@string/information"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/colorWhite" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="@string/trip_info"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/drop_shadow"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorBackground"
+            app:layout_constraintBottom_toTopOf="@id/divider"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <TextView
+            android:id="@+id/textTravelTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:text="@string/travel_time"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@id/textTripNumber"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <TextView
+            android:id="@+id/textTripNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:text="@string/trip_number"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textTravelTime"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <TextView
+            android:id="@+id/textTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center"
+            android:text="@string/_44_minutes"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textTravelTime"
+            app:layout_constraintStart_toStartOf="@+id/textTravelTime"
+            app:layout_constraintTop_toBottomOf="@+id/textTravelTime" />
+
+        <TextView
+            android:id="@+id/textNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="center"
+            android:text="@string/_802"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textTripNumber"
+            app:layout_constraintStart_toStartOf="@+id/textTripNumber"
+            app:layout_constraintTop_toBottomOf="@+id/textTripNumber" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintTop_toBottomOf="@id/textTime" />
+
+
+        <View
+            android:id="@+id/startStatus"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/shape_status_completed"
+            app:layout_constraintBottom_toBottomOf="@id/imageStartTrafficHub"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageStartTrafficHub" />
+
+        <ImageView
+            android:id="@+id/imageStartTrafficHub"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/train_platform_empty"
+            app:layout_constraintStart_toEndOf="@id/startStatus"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/supporterStartTrafficHub"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/imageStartTrafficHub"
+            app:layout_constraintEnd_toEndOf="@id/imageStartTrafficHub"
+            app:layout_constraintStart_toStartOf="@id/imageStartTrafficHub"
+            app:layout_constraintTop_toTopOf="@id/imageStartTrafficHub" />
+
+        <TextView
+            android:id="@+id/textStartTrafficHub"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="@string/kyiv"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/supporterStartTrafficHub"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageStartTrafficHub" />
+
+        <TextView
+            android:id="@+id/textDescriptionStartTrafficHub"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/kyiv"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/textStartTrafficHub"
+            app:layout_constraintStart_toStartOf="@id/textStartTrafficHub"
+            app:layout_constraintTop_toBottomOf="@id/supporterStartTrafficHub" />
+
+
+        <View
+            android:id="@+id/firstStopStatus"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/shape_status_current"
+            app:layout_constraintBottom_toBottomOf="@id/imageFirstStopTrafficHub"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageFirstStopTrafficHub" />
+
+        <ImageView
+            android:id="@+id/imageFirstStopTrafficHub"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="150dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/train_platform"
+            app:layout_constraintStart_toEndOf="@id/firstStopStatus"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/supporterFirstStopTrafficHub"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/imageFirstStopTrafficHub"
+            app:layout_constraintEnd_toEndOf="@id/imageFirstStopTrafficHub"
+            app:layout_constraintStart_toStartOf="@id/imageFirstStopTrafficHub"
+            app:layout_constraintTop_toTopOf="@id/imageFirstStopTrafficHub" />
+
+        <TextView
+            android:id="@+id/textFirstStopTrafficHub"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="@string/vydubychi"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/supporterFirstStopTrafficHub"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageFirstStopTrafficHub" />
+
+        <TextView
+            android:id="@+id/textDescriptionFirstStopTrafficHub"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vydubychi"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/textFirstStopTrafficHub"
+            app:layout_constraintStart_toStartOf="@id/textFirstStopTrafficHub"
+            app:layout_constraintTop_toBottomOf="@id/supporterFirstStopTrafficHub" />
+
+        
+        <View
+            android:id="@+id/secondStopStatus"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/shape_status_remaining"
+            app:layout_constraintBottom_toBottomOf="@id/imageSecondStopTrafficHub"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageSecondStopTrafficHub" />
+
+        <ImageView
+            android:id="@+id/imageSecondStopTrafficHub"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="260dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/train_platform_empty"
+            app:layout_constraintStart_toEndOf="@id/secondStopStatus"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/supporterSecondStopTrafficHub"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/imageSecondStopTrafficHub"
+            app:layout_constraintEnd_toEndOf="@id/imageSecondStopTrafficHub"
+            app:layout_constraintStart_toStartOf="@id/imageSecondStopTrafficHub"
+            app:layout_constraintTop_toTopOf="@id/imageSecondStopTrafficHub" />
+
+        <TextView
+            android:id="@+id/textSecondStopTrafficHub"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="@string/darnitsa"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/supporterSecondStopTrafficHub"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageSecondStopTrafficHub" />
+
+        <TextView
+            android:id="@+id/textDescriptionSecondStopTrafficHub"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/darnitsa"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/textSecondStopTrafficHub"
+            app:layout_constraintStart_toStartOf="@id/textSecondStopTrafficHub"
+            app:layout_constraintTop_toBottomOf="@id/supporterSecondStopTrafficHub" />
+
+        
+        <View
+            android:id="@+id/endStatus"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/shape_status_remaining"
+            app:layout_constraintBottom_toBottomOf="@id/imageEndTrafficHub"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imageEndTrafficHub" />
+
+        <ImageView
+            android:id="@+id/imageEndTrafficHub"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="370dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/train_platform_empty"
+            app:layout_constraintStart_toEndOf="@id/startStatus"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/supporterEndTrafficHub"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/imageEndTrafficHub"
+            app:layout_constraintEnd_toEndOf="@id/imageEndTrafficHub"
+            app:layout_constraintStart_toStartOf="@id/imageEndTrafficHub"
+            app:layout_constraintTop_toTopOf="@id/imageEndTrafficHub" />
+
+        <TextView
+            android:id="@+id/textEndTrafficHub"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="@string/airport"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/supporterEndTrafficHub"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageStartTrafficHub" />
+
+        <TextView
+            android:id="@+id/textDescriptionEndTrafficHub"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/airport"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@id/textEndTrafficHub"
+            app:layout_constraintStart_toStartOf="@id/textEndTrafficHub"
+            app:layout_constraintTop_toBottomOf="@id/supporterEndTrafficHub" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

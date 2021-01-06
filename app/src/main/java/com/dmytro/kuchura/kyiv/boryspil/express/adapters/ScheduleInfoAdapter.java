@@ -15,12 +15,13 @@ import com.dmytro.kuchura.kyiv.boryspil.express.models.Schedule;
 
 import java.util.List;
 
-public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder> {
+public class ScheduleInfoAdapter extends RecyclerView.Adapter<ScheduleInfoAdapter.ScheduleViewHolder> {
 
     private Context context;
     private List<Schedule> schedules;
 
-    public ScheduleAdapter(Context context, List<Schedule> schedules) {
+
+    public ScheduleInfoAdapter(Context context, List<Schedule> schedules) {
         this.context = context;
         this.schedules = schedules;
     }

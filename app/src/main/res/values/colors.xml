@@ -10,4 +10,7 @@
     <color name="colorSelectedMenu">#408DED</color>
     <color name="colorBackground">#F2F5FE</color>
     <color name="colorPlaceholder">#DDDDDD</color>
+    <color name="colorCompleted">#4CAF50</color>
+    <color name="colorCurrent">#FFC107</color>
+    <color name="colorRemaining">#787E79</color>
 </resources>

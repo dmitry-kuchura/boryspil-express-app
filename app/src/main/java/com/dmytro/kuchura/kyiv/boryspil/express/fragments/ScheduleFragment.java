@@ -50,9 +50,6 @@ public class ScheduleFragment extends Fragment {
     private RequestQueue requestQueue;
     private TabLayout tabLayout;
 
-    private long backPressedTime;
-    private Toast backToast;
-
     private boolean showOutbound;
 
     private static final String URL = API_TRAINS_LIST;
@@ -104,6 +101,7 @@ public class ScheduleFragment extends Fragment {
 
         return view;
     }
+
 
     private void getTrains() {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {

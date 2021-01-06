@@ -22,5 +22,11 @@
     <string name="inbound">From airport</string>
     <string name="news">News</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="trip_info">Trip info</string>
+    <string name="cancel">Cancel</string>
+    <string name="travel_time">Travel time</string>
+    <string name="trip_number">Trip number</string>
+    <string name="_44_minutes">44 minutes</string>
+    <string name="_802">№ 802</string>
+    <string name="airport">Airport</string>
 </resources>

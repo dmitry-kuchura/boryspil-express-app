@@ -22,4 +22,11 @@
     <string name="inbound">З аеропорту</string>
     <string name="_6_nov_09_40">6 Лис, 09:40</string>
     <string name="news">Новини</string>
+    <string name="trip_info">Trip info</string>
+    <string name="cancel">Cancel</string>
+    <string name="travel_time">Travel time</string>
+    <string name="trip_number">Trip number</string>
+    <string name="_44_minutes">44 minutes</string>
+    <string name="_802">№ 802</string>
+    <string name="airport">Аеропорт</string>
 </resources>
