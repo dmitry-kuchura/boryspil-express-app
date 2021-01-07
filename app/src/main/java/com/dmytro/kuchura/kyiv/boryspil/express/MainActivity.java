@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     final Fragment infoFragment = new InfoFragment();
     final FragmentManager fragmentManager = getSupportFragmentManager();
 
+    private BottomNavigationView navigation;
+
     Fragment active = mainFragment;
 
     @Override
@@ -27,13 +29,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
         navigation.setOnNavigationItemReselectedListener(onNavigationItemReselectedListener);
 
         fragmentManager.beginTransaction().add(R.id.main_container, infoFragment, "3").hide(infoFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, scheduleFragment, "2").hide(scheduleFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, mainFragment, "1").commit();
+    }
+
+    public void changeMenu(int menuId) {
+        navigation.setSelectedItemId(menuId);
+    }
+
+    public void changeFragmentToSchedule() {
+        fragmentManager.beginTransaction().hide(active).show(scheduleFragment).commit();
+        active = scheduleFragment;
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -21,13 +21,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.dmytro.kuchura.kyiv.boryspil.express.MainActivity;
 import com.dmytro.kuchura.kyiv.boryspil.express.R;
 import com.dmytro.kuchura.kyiv.boryspil.express.adapters.ScheduleAdapter;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.Schedule;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.TrafficHub;
 import com.dmytro.kuchura.kyiv.boryspil.express.utils.TimeDiff;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.dmytro.kuchura.kyiv.boryspil.express.utils.Api.Url.API_CURRENT_TRAINS_LIST;
+import static java.util.Objects.isNull;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,9 +90,8 @@ public class MainFragment extends Fragment {
         allText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, new ScheduleFragment());
-                fragmentTransaction.commit();
+                ((MainActivity)getActivity()).changeMenu(R.id.menu_schedule);
+                ((MainActivity)getActivity()).changeFragmentToSchedule();
             }
         });
 
@@ -105,61 +105,66 @@ public class MainFragment extends Fragment {
                 List<Schedule> scheduleItems = new ArrayList<>();
 
                 try {
-                    JSONArray dataResponse = response.getJSONArray("data");
+                    JSONArray checkDataResponse = response.optJSONArray("data");
 
-                    for (int i = 0; i < dataResponse.length(); i++) {
-                        JSONObject jsonObject = dataResponse.getJSONObject(i);
+                    if (!isNull(checkDataResponse)) {
+                        JSONArray dataResponse = response.getJSONArray("data");
 
-                        Schedule schedule = new Schedule();
+                        for (int i = 0; i < dataResponse.length(); i++) {
+                            JSONObject jsonObject = dataResponse.getJSONObject(i);
 
-                        int number = jsonObject.getInt("number");
+                            Schedule schedule = new Schedule();
 
-                        JSONObject departure = jsonObject.getJSONObject("departureTrafficHub");
-                        String departureName = departure.getString("name");
-                        String departureFullName = departure.getString("fullName");
+                            int number = jsonObject.getInt("number");
 
-                        JSONObject arrival = jsonObject.getJSONObject("arrivalTrafficHub");
-                        String arrivalName = arrival.getString("name");
-                        String arrivalFullName = arrival.getString("fullName");
+                            JSONObject departure = jsonObject.getJSONObject("departureTrafficHub");
+                            String departureName = departure.getString("name");
+                            String departureFullName = departure.getString("fullName");
 
-                        JSONArray segments = jsonObject.getJSONArray("segments");
+                            JSONObject arrival = jsonObject.getJSONObject("arrivalTrafficHub");
+                            String arrivalName = arrival.getString("name");
+                            String arrivalFullName = arrival.getString("fullName");
 
-                        String trainDepartureTime = jsonObject.getString("departureTime");
-                        String[] trainDepartureTimes = trainDepartureTime.split(":");
+                            JSONArray segments = jsonObject.getJSONArray("segments");
 
-                        String trainArrivalTime = jsonObject.getString("arrivalTime");
-                        String[] trainArrivalTimes = trainArrivalTime.split(":");
+                            String trainDepartureTime = jsonObject.getString("departureTime");
+                            String[] trainDepartureTimes = trainDepartureTime.split(":");
 
-                        TrafficHub departureTrafficHub = new TrafficHub();
-                        departureTrafficHub.setName(departureName);
-                        departureTrafficHub.setFullName(departureFullName);
+                            String trainArrivalTime = jsonObject.getString("arrivalTime");
+                            String[] trainArrivalTimes = trainArrivalTime.split(":");
 
-                        TrafficHub arrivalTrafficHub = new TrafficHub();
-                        arrivalTrafficHub.setName(arrivalName);
-                        arrivalTrafficHub.setFullName(arrivalFullName);
+                            TrafficHub departureTrafficHub = new TrafficHub();
+                            departureTrafficHub.setName(departureName);
+                            departureTrafficHub.setFullName(departureFullName);
 
-                        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-                        Date now = new Date();
+                            TrafficHub arrivalTrafficHub = new TrafficHub();
+                            arrivalTrafficHub.setName(arrivalName);
+                            arrivalTrafficHub.setFullName(arrivalFullName);
 
-                        now.setHours(Integer.parseInt(trainDepartureTimes[0]));
-                        now.setMinutes(Integer.parseInt(trainDepartureTimes[1]));
-                        String departureTime = format.format(now);
+                            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+                            Date now = new Date();
 
-                        now.setHours(Integer.parseInt(trainArrivalTimes[0]));
-                        now.setMinutes(Integer.parseInt(trainArrivalTimes[1]));
-                        String arrivalTime = format.format(now);
+                            now.setHours(Integer.parseInt(trainDepartureTimes[0]));
+                            now.setMinutes(Integer.parseInt(trainDepartureTimes[1]));
+                            String departureTime = format.format(now);
 
-                        String diff = TimeDiff.getDiffTime(departureTime, arrivalTime);
+                            now.setHours(Integer.parseInt(trainArrivalTimes[0]));
+                            now.setMinutes(Integer.parseInt(trainArrivalTimes[1]));
+                            String arrivalTime = format.format(now);
 
-                        schedule.setNumber(number);
-                        schedule.setDepartureTime(departureTime);
-                        schedule.setDepartureTrafficHub(departureTrafficHub);
-                        schedule.setArrivalTime(arrivalTime);
-                        schedule.setArrivalTrafficHub(arrivalTrafficHub);
-                        schedule.setTime(diff);
+                            String diff = TimeDiff.getDiffTime(departureTime, arrivalTime);
 
-                        scheduleItems.add(schedule);
+                            schedule.setNumber(number);
+                            schedule.setDepartureTime(departureTime);
+                            schedule.setDepartureTrafficHub(departureTrafficHub);
+                            schedule.setArrivalTime(arrivalTime);
+                            schedule.setArrivalTrafficHub(arrivalTrafficHub);
+                            schedule.setTime(diff);
+
+                            scheduleItems.add(schedule);
+                        }
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

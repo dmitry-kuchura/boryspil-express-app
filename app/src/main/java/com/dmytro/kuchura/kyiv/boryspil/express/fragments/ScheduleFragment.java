@@ -102,7 +102,6 @@ public class ScheduleFragment extends Fragment {
         return view;
     }
 
-
     private void getTrains() {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
