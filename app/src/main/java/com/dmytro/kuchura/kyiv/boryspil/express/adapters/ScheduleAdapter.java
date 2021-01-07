@@ -17,11 +17,9 @@ import java.util.List;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder> {
 
-    private Context context;
     private List<Schedule> schedules;
 
     public ScheduleAdapter(Context context, List<Schedule> schedules) {
-        this.context = context;
         this.schedules = schedules;
     }
 
@@ -29,11 +27,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     @Override
     public ScheduleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ScheduleViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(
-                        R.layout.schedule_list_item,
-                        parent,
-                        false
-                )
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_list_item, parent, false)
         );
     }
 
@@ -47,7 +41,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
         return schedules.size();
     }
 
-    class ScheduleViewHolder extends RecyclerView.ViewHolder {
+    static class ScheduleViewHolder extends RecyclerView.ViewHolder {
 
         ConstraintLayout layoutSchedule;
         TextView number;
@@ -57,7 +51,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
         TextView textTripTime;
         TextView arrivalTrafficHub;
         TextView arrivalTrafficHubName;
-
 
         ScheduleViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,7 +66,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
         }
 
         void bindSchedule(final Schedule schedule) {
-            number.setText("№" + schedule.getNumber() + "");
+            number.setText("№" + schedule.getNumber());
             tripDate.setText(schedule.getDepartureTime());
             departureTrafficHub.setText(schedule.getDepartureTrafficHub().getName());
             departureTrafficHubName.setText(schedule.getDepartureTrafficHub().getFullName());
@@ -82,5 +75,4 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
             textTripTime.setText(schedule.getTime());
         }
     }
-
 }

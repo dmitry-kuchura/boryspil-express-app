@@ -29,4 +29,6 @@
     <string name="_44_minutes">44 minutes</string>
     <string name="_802">№ 802</string>
     <string name="airport">Airport</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

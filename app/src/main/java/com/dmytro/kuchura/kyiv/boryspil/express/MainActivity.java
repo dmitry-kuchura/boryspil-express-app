@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.dmytro.kuchura.kyiv.boryspil.express.fragments.InfoFragment;
 import com.dmytro.kuchura.kyiv.boryspil.express.fragments.MainFragment;
 import com.dmytro.kuchura.kyiv.boryspil.express.fragments.ScheduleFragment;
+import com.dmytro.kuchura.kyiv.boryspil.express.fragments.TripFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,7 +20,10 @@ public class MainActivity extends AppCompatActivity {
     final Fragment mainFragment = new MainFragment();
     final Fragment scheduleFragment = new ScheduleFragment();
     final Fragment infoFragment = new InfoFragment();
+    final Fragment tripFragment = new TripFragment();
     final FragmentManager fragmentManager = getSupportFragmentManager();
+
+    private String trainNumber = "";
 
     private BottomNavigationView navigation;
 
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
         navigation.setOnNavigationItemReselectedListener(onNavigationItemReselectedListener);
 
+        fragmentManager.beginTransaction().add(R.id.main_container, tripFragment, "4").hide(tripFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, infoFragment, "3").hide(infoFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, scheduleFragment, "2").hide(scheduleFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, mainFragment, "1").commit();
@@ -45,6 +51,18 @@ public class MainActivity extends AppCompatActivity {
     public void changeFragmentToSchedule() {
         fragmentManager.beginTransaction().hide(active).show(scheduleFragment).commit();
         active = scheduleFragment;
+    }
+
+    public void changeFragmentToTripInfo(int tripNumber) {
+        trainNumber = String.valueOf(tripNumber);
+
+        Bundle result = new Bundle();
+        result.putString("trainNumber", trainNumber);
+
+        tripFragment.setArguments(result);
+
+        fragmentManager.beginTransaction().hide(active).show(tripFragment).commit();
+        active = tripFragment;
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -87,4 +105,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+    public String getTrainNumber() {
+        return trainNumber;
+    }
 }

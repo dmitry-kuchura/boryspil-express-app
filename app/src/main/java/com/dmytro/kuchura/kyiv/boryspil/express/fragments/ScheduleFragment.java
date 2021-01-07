@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.dmytro.kuchura.kyiv.boryspil.express.MainActivity;
 import com.dmytro.kuchura.kyiv.boryspil.express.R;
 import com.dmytro.kuchura.kyiv.boryspil.express.adapters.ScheduleAdapter;
+import com.dmytro.kuchura.kyiv.boryspil.express.listeners.RecyclerItemClickListener;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.Schedule;
 import com.dmytro.kuchura.kyiv.boryspil.express.models.TrafficHub;
 import com.dmytro.kuchura.kyiv.boryspil.express.utils.TimeDiff;
@@ -43,8 +46,9 @@ import static com.dmytro.kuchura.kyiv.boryspil.express.utils.Api.Url.API_TRAINS_
  */
 public class ScheduleFragment extends Fragment {
 
-    private List<Schedule> scheduleList;
+    private static List<Schedule> scheduleList;
     private ScheduleAdapter scheduleAdapter;
+    private static RecyclerView recyclerView;
 
     private ShimmerFrameLayout shimmerFrameLayout;
     private RequestQueue requestQueue;
@@ -67,7 +71,7 @@ public class ScheduleFragment extends Fragment {
         tabLayout = view.findViewById(R.id.scheduleTabs);
 
         requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        RecyclerView recyclerView = view.findViewById(R.id.scheduleRecyclerView);
+        recyclerView = view.findViewById(R.id.scheduleRecyclerView);
         shimmerFrameLayout = view.findViewById(R.id.shimmerViewContainer);
 
         scheduleList = new ArrayList<>();
@@ -80,6 +84,20 @@ public class ScheduleFragment extends Fragment {
         recyclerView.setAdapter(scheduleAdapter);
 
         getTrains();
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity().getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Schedule schedule = scheduleList.get(position);
+
+                getTrainInfo(schedule.getNumber());
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Log.d("TAG", "onItemLongClick");
+            }
+        }));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -196,6 +214,10 @@ public class ScheduleFragment extends Fragment {
         });
 
         requestQueue.add(request);
+    }
+
+    private void getTrainInfo(int number) {
+        ((MainActivity)getActivity()).changeFragmentToTripInfo(number);
     }
 
     @Override
