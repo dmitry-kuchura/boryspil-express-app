@@ -15,7 +15,7 @@ public class Schedule {
     @SerializedName("arrivalTrafficHub")
     private TrafficHub arrivalTrafficHub;
 
-    @SerializedName("arrivalTrafficHub")
+    @SerializedName("segments")
     private ArrayList<Segment> segments;
 
     @SerializedName("time")

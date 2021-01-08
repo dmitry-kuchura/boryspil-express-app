@@ -147,8 +147,6 @@ public class ScheduleFragment extends Fragment {
                         String arrivalName = arrival.getString("name");
                         String arrivalFullName = arrival.getString("fullName");
 
-                        JSONArray segments = jsonObject.getJSONArray("segments");
-
                         String trainDepartureTime = jsonObject.getString("departureTime");
                         String[] trainDepartureTimes = trainDepartureTime.split(":");
 
@@ -217,7 +215,7 @@ public class ScheduleFragment extends Fragment {
     }
 
     private void getTrainInfo(int number) {
-        ((MainActivity)getActivity()).changeFragmentToTripInfo(number);
+        ((MainActivity) getActivity()).changeFragmentToTripInfo(number);
     }
 
     @Override

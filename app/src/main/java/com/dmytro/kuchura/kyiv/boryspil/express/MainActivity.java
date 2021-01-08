@@ -56,11 +56,6 @@ public class MainActivity extends AppCompatActivity {
     public void changeFragmentToTripInfo(int tripNumber) {
         trainNumber = String.valueOf(tripNumber);
 
-        Bundle result = new Bundle();
-        result.putString("trainNumber", trainNumber);
-
-        tripFragment.setArguments(result);
-
         fragmentManager.beginTransaction().hide(active).show(tripFragment).commit();
         active = tripFragment;
     }
